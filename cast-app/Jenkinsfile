@@ -12,11 +12,10 @@ pipeline {
         stage(' Docker Build -> Cast Service'){ // docker build image stage
             steps {
                 script {
+		sh 'pwd'
                 sh '''
                 docker rm -f cast_db
                 docker rm -f cast_service
-		echo $PWD
-		ls -la
                 cd cast-service/
                 docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG .
                 cd - >/dev/null
