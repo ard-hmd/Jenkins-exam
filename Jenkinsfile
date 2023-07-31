@@ -99,7 +99,7 @@ pipeline {
                     cat $KUBECONFIG > .kube/config
                     cp cast-chart/values.yaml values.yaml
                     cat values.yaml
-                    sed -i '0,/tag.*/s//tag: ${DOCKER_TAG}/' values.yaml
+                    sed -i "0,/tag.*/s//tag: ${DOCKER_TAG}/" values.yaml
                     helm upgrade --install cast-chart-release cast-chart --values=values.yaml --set service.port=8001 --set db.name=cast_db_dev --namespace dev
                     '''
                     }
@@ -121,7 +121,7 @@ pipeline {
                     cat $KUBECONFIG > .kube/config
                     cp cast-chart/values.yaml values.yaml
                     cat values.yaml
-                    sed -i '0,/tag.*/s//tag: ${DOCKER_TAG}/' values.yaml
+                    sed -i "0,/tag.*/s//tag: ${DOCKER_TAG}/" values.yaml
                     helm upgrade --install cast-chart-release cast-chart --values=values.yaml --set service.port=8003 --set db.name=cast_db_staging --namespace staging
                     '''
                     }
@@ -149,7 +149,7 @@ pipeline {
                     cat $KUBECONFIG > .kube/config
                     cp cast-chart/values.yaml values.yaml
                     cat values.yaml
-                    sed -i '0,/tag.*/s//tag: ${DOCKER_TAG}/' values.yaml
+                    sed -i "0,/tag.*/s//tag: ${DOCKER_TAG}/" values.yaml
                     helm upgrade --install cast-chart-release cast-chart --values=values.yaml --set service.port=8005 --set db.name=cast_db_prod --namespace prod
                     '''
                     }
