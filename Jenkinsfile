@@ -119,7 +119,7 @@ pipeline {
                     mkdir .kube
                     ls
                     cat $KUBECONFIG > .kube/config
-                    cp fastapi/values.yaml values.yml
+                    cp cast-chart/values.yaml values.yml
                     cat values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
                     helm upgrade --install cast-chart-release cast-chart --values=values.yml --set service.port=8003 --set db.name=cast_db_staging --namespace staging
@@ -147,7 +147,7 @@ pipeline {
                     mkdir .kube
                     ls
                     cat $KUBECONFIG > .kube/config
-                    cp fastapi/values.yaml values.yml
+                    cp cast-chart/values.yaml values.yml
                     cat values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
                     helm upgrade --install cast-chart-release cast-chart --values=values.yml --set service.port=8005 --set db.name=cast_db_prod --namespace prod
