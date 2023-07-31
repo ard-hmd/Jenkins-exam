@@ -99,8 +99,8 @@ pipeline {
                     cat $KUBECONFIG > .kube/config
                     cp cast-chart/values.yaml values.yml
                     cat values.yml
-                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+" values.yml
-                    helm upgrade --install cast-chart-release cast-chart --values=values.yml --set service.port=8001 --set db.name=cast_db_dev --namespace dev
+                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+" values.yaml
+                    helm upgrade --install cast-chart-release cast-chart --values=values.yaml --set service.port=8001 --set db.name=cast_db_dev --namespace dev
                     '''
                     }
                 }
@@ -121,8 +121,8 @@ pipeline {
                     cat $KUBECONFIG > .kube/config
                     cp cast-chart/values.yaml values.yml
                     cat values.yml
-                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+" values.yml
-                    helm upgrade --install cast-chart-release cast-chart --values=values.yml --set service.port=8003 --set db.name=cast_db_staging --namespace staging
+                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+" values.yaml
+                    helm upgrade --install cast-chart-release cast-chart --values=values.yaml --set service.port=8003 --set db.name=cast_db_staging --namespace staging
                     '''
                     }
                 }
@@ -149,8 +149,8 @@ pipeline {
                     cat $KUBECONFIG > .kube/config
                     cp cast-chart/values.yaml values.yml
                     cat values.yml
-                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+" values.yml
-                    helm upgrade --install cast-chart-release cast-chart --values=values.yml --set service.port=8005 --set db.name=cast_db_prod --namespace prod
+                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+" values.yaml
+                    helm upgrade --install cast-chart-release cast-chart --values=values.yaml --set service.port=8005 --set db.name=cast_db_prod --namespace prod
                     '''
                     }
                 }
