@@ -1,5 +1,5 @@
 pipeline {
-    
+
     environment { // Declaration of environment variables
     DOCKER_ID = "ardhmd" // replace this with your docker-id
     DOCKER_IMAGE = "cast-service"
@@ -27,8 +27,8 @@ pipeline {
         stage(' Docker run -> Cast DB'){ // run container from our builded image
             environment
             {
-                DOCKER_PASS = credentials("CAST_DB_PASSWORD") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
-                DOCKER_PASS = credentials("CAST_DB_NAME") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
+                CAST_DB_PASSWORD = credentials("CAST_DB_PASSWORD") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
+                CAST_DB_NAME = credentials("CAST_DB_NAME") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
             }
             steps {
                 script {
@@ -43,8 +43,8 @@ pipeline {
         stage(' Docker run -> Cast Service'){ // run container from our builded image
             environment
             {
-                DOCKER_PASS = credentials("CAST_DB_PASSWORD") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
-                DOCKER_PASS = credentials("CAST_DB_NAME") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
+                CAST_DB_PASSWORD = credentials("CAST_DB_PASSWORD") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
+                CAST_DB_NAME = credentials("CAST_DB_NAME") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
             }
             steps {
                 script {
