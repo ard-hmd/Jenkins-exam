@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  repository: ardhmd/cast-service
+  pullPolicy: IfNotPresent
+  tag: ""
+
+service:
+  type: ClusterIP
+  port: 8000
+
+db:
+  image:
+    repository: postgres
+    pullPolicy: IfNotPresent
+    tag: "12.1-alpine"
+  service:
+    type: ClusterIP
+    port: 5432
+  user: cast_db_username
+  password: cast_db_password
+  name: cast_db_dev

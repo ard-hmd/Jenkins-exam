@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cast-app
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: cast-app
+  template:
+    metadata:
+      labels:
+        app: cast-app
+    spec:
+      containers:
+      - name: cast-app
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        command: ["uvicorn"]
+        args: ["app.main:app", "--reload", "--host", "0.0.0.0", "--port", "{{ .Values.service.port }}"]
+        env:
+        - name: DATABASE_URI
+          value: postgresql://{{ .Values.db.user }}:{{ if (lookup "v1" "Secret" .Release.Namespace "db-cast-password-secret") }}{{ (lookup "v1" "Secret" .Release.Namespace "db-cast-password-secret").data.password | b64dec }}{{ else }}{{ .Values.db.password }}{{ end }}@cast-db-service/{{ .Values.db.name }}
+
