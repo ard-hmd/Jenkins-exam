@@ -1,0 +1,23 @@
+replicaCount: 1
+
+image:
+  repository: ardhmd/movie-service
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 8000
+
+db:
+  image:
+    repository: postgres
+    pullPolicy: IfNotPresent
+    tag: "12.1-alpine"
+  service:
+    type: ClusterIP
+    port: 5432
+  user: movie_db_username
+  password: movie_db_password
+  name: movie_db_dev
+

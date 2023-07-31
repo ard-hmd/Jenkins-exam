@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie-app
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: movie-app
+  template:
+    metadata:
+      labels:
+        app: movie-app
+    spec:
+      containers:
+      - name: movie-app
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        command: ["uvicorn"]
+        args: ["app.main:app", "--reload", "--host", "0.0.0.0", "--port", "{{ .Values.service.port }}"]
+        env:
+        - name: DATABASE_URI
+          value: postgresql://{{ .Values.db.user }}:{{ if (lookup "v1" "Secret" .Release.Namespace "db-movie-password-secret") }}{{ (lookup "v1" "Secret" .Release.Namespace "db-movie-password-secret").data.password | b64dec }}{{ else }}{{ .Values.db.password }}{{ end }}@movie-db-service/{{ .Values.db.name }}
+        - name: CAST_SERVICE_HOST_URL
+          value: http://cast-service:{{ .Values.service.port }}/api/v1/casts/
+
