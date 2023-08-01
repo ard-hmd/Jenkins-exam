@@ -15,7 +15,7 @@ pipeline {
                 sh '''
                 docker rm -f cast_db
                 docker rm -f cast_service
-                cd cast-app/cast-service/
+                cd cast-service/
                 docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG .
                 cd - >/dev/null
                 sleep 6
@@ -97,10 +97,10 @@ pipeline {
                     mkdir .kube
                     ls
                     cat $KUBECONFIG > .kube/config
-                    cp cast-app/cast-chart/values.yaml values.yaml
+                    cp cast-chart/values.yaml values.yaml
                     cat values.yaml
                     sed -i "0,/tag.*/s//tag: ${DOCKER_TAG}/" values.yaml
-                    helm upgrade --install cast-chart-release ./cast-app/cast-chart --values=values.yaml --set service.port=8001 --set db.name=cast_db_dev --namespace dev
+                    helm upgrade --install cast-chart-release ./cast-chart --values=values.yaml --set service.port=8001 --set db.name=cast_db_dev --namespace dev
                     '''
                     }
                 }
@@ -119,10 +119,10 @@ pipeline {
                     mkdir .kube
                     ls
                     cat $KUBECONFIG > .kube/config
-                    cp cast-app/cast-chart/values.yaml values.yaml
+                    cp cast-chart/values.yaml values.yaml
                     cat values.yaml
                     sed -i "0,/tag.*/s//tag: ${DOCKER_TAG}/" values.yaml
-                    helm upgrade --install cast-chart-release ./cast-app/cast-chart --values=values.yaml --set service.port=8003 --set db.name=cast_db_staging --namespace staging
+                    helm upgrade --install cast-chart-release ./cast-chart --values=values.yaml --set service.port=8003 --set db.name=cast_db_staging --namespace staging
                     '''
                     }
                 }
@@ -147,10 +147,10 @@ pipeline {
                     mkdir .kube
                     ls
                     cat $KUBECONFIG > .kube/config
-                    cp cast-app/cast-chart/values.yaml values.yaml
+                    cp cast-chart/values.yaml values.yaml
                     cat values.yaml
                     sed -i "0,/tag.*/s//tag: ${DOCKER_TAG}/" values.yaml
-                    helm upgrade --install cast-chart-release ./cast-app/cast-chart --values=values.yaml --set service.port=8005 --set db.name=cast_db_prod --namespace prod
+                    helm upgrade --install cast-chart-release ./cast-chart --values=values.yaml --set service.port=8005 --set db.name=cast_db_prod --namespace prod
                     '''
                     }
                 }
