@@ -107,6 +107,28 @@ pipeline {
 
         }
 
+        stage('Deploiement en qa -> Cast Service'){
+            environment
+            {
+            KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+            }
+                steps {
+                    script {
+                    sh '''
+                    rm -Rf .kube
+                    mkdir .kube
+                    ls
+                    cat $KUBECONFIG > .kube/config
+                    cp cast-chart/values.yaml values.yaml
+                    cat values.yaml
+                    sed -i "0,/tag.*/s//tag: ${DOCKER_TAG}/" values.yaml
+                    helm upgrade --install cast-chart-release ./cast-chart --values=values.yaml --set service.port=8001 --set db.name=cast_db_qa --namespace qa
+                    '''
+                    }
+                }
+
+        }
+
         stage('Deploiement en staging -> Cast Service'){
             environment
             {
