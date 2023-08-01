@@ -122,7 +122,7 @@ pipeline {
                     cp cast-chart/values.yaml values.yaml
                     cat values.yaml
                     sed -i "0,/tag.*/s//tag: ${DOCKER_TAG}/" values.yaml
-                    helm upgrade --install cast-chart-release ./cast-chart --values=values.yaml --set service.port=8001 --set db.name=cast_db_qa --namespace qa
+                    helm upgrade --install cast-chart-release ./cast-chart --values=values.yaml --set service.port=8003 --set db.name=cast_db_qa --namespace qa
                     '''
                     }
                 }
@@ -144,7 +144,7 @@ pipeline {
                     cp cast-chart/values.yaml values.yaml
                     cat values.yaml
                     sed -i "0,/tag.*/s//tag: ${DOCKER_TAG}/" values.yaml
-                    helm upgrade --install cast-chart-release ./cast-chart --values=values.yaml --set service.port=8003 --set db.name=cast_db_staging --namespace staging
+                    helm upgrade --install cast-chart-release ./cast-chart --values=values.yaml --set service.port=8005 --set db.name=cast_db_staging --namespace staging
                     '''
                     }
                 }
@@ -172,7 +172,7 @@ pipeline {
                     cp cast-chart/values.yaml values.yaml
                     cat values.yaml
                     sed -i "0,/tag.*/s//tag: ${DOCKER_TAG}/" values.yaml
-                    helm upgrade --install cast-chart-release ./cast-chart --values=values.yaml --set service.port=8005 --set db.name=cast_db_prod --namespace prod
+                    helm upgrade --install cast-chart-release ./cast-chart --values=values.yaml --set service.port=8007 --set db.name=cast_db_prod --namespace prod
                     '''
                     }
                 }
